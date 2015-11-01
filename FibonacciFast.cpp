@@ -7,21 +7,22 @@ using std::vector;
 using std::cout;
 using std::endl;
 
-class Fibonacci {
-    vector<long int> LookupTable;
-    
-public:
-    Fibonacci();
-    long int fibonacci (int n);
-};
+long int fibonacciF(int n) {
+    long int prev, penult, curr;
 
-Fibonacci::Fibonacci() {
-    
-}
+    if(n==0) return 0;
+    if(n==1) return 1;
+    if(n==2) return 1;
 
-long int Fibonacci::fibonacci (int n) {
-    if (LookupTable.size()-1 >= n) return LookupTable[n];
+    prev = penult = 1;
+
+    for (int i=3; i<=n; i++) {
+        curr = prev + penult;
+        penult = prev;
+        prev = curr;
+    }
     
+    return curr;
 }
 
 int main() {
@@ -36,7 +37,7 @@ int main() {
     
         clock_t begin = clock();
         
-        long int res = fibonacciR(n);
+        long int res = fibonacciF(n);
     
         clock_t end = clock();
         double elapsedT = double(end-begin) / CLOCKS_PER_SEC;
